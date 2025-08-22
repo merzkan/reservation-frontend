@@ -24,8 +24,7 @@ export default function Login({ setIsLoggedIn, setIsAdmin }) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/login`, formData);
-      console.log(import.meta.env.VITE_API_BASE_URL);
+      const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}login`, formData);
       localStorage.setItem("token", data.token);
       localStorage.setItem("isAdmin", data.isAdmin);
       localStorage.setItem("user", JSON.stringify(data.user));
