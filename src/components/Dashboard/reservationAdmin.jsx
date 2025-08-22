@@ -24,7 +24,7 @@ export default function ReservationsByDatePaginated() {
       setErrorMsg("");
       try {
         const token = localStorage.getItem("token");
-        const { data } = await axios.get("http://localhost:3000/reservation/all-user", {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/reservation/all-user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setReservations(data);
@@ -88,7 +88,7 @@ export default function ReservationsByDatePaginated() {
       const token = localStorage.getItem("token");
       const { data } = await axios.patch(
         
-        `http://localhost:3000/reservation/${selectedResvId}/status`,
+        `${import.meta.env.VITE_API_BASE_URL}/reservation/${selectedResvId}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

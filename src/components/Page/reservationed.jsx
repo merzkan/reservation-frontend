@@ -32,7 +32,7 @@ export default function ReservationList() {
     try {
       const token = localStorage.getItem("token");
       const { data } = await axios.get(
-        "http://localhost:3000/reservation/user",
+        `${import.meta.env.VITE_API_BASE_URL}/reservation/user`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const sortedData = data.sort((a, b) => new Date(b.date) - new Date(a.date));

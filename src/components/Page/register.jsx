@@ -40,7 +40,7 @@ export default function Register() {
     }
 
     try {
-      await axios.post("http://localhost:3000/register", formData);
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/register`, formData);
       alert("Kayıt başarılı! Giriş sayfasına yönlendiriliyorsunuz.");
       setFormData({ name: "", surname: "", email: "", password: "", repassword: "" });
       setErrors({});

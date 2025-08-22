@@ -31,8 +31,8 @@ export default function Users({ query }) {
       setLoading(true);
       try {
         const url = query
-          ? `http://localhost:3000/users/search?q=${query}&page=${page}&limit=${rowsPerPage}`
-          : `http://localhost:3000/users?page=${page}&limit=${rowsPerPage}`;
+          ? `${import.meta.env.VITE_API_BASE_URL}/users/search?q=${query}&page=${page}&limit=${rowsPerPage}`
+          : `${import.meta.env.VITE_API_BASE_URL}/users?page=${page}&limit=${rowsPerPage}`;
         const { data } = await axios.get(url, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
         setUsers(data.users);
         setTotal(data.total);
@@ -45,7 +45,7 @@ export default function Users({ query }) {
   const handleDelete = async (user) => {
     if (!window.confirm(`"${user.name} ${user.surname}" kullanıcısını silmek istediğinize emin misiniz?`)) return;
     try {
-      await axios.delete(`http://localhost:3000/users/delete/${user.id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/users/delete/${user.id}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
       setUsers(prev => prev.filter(u => u.id !== user.id));
       setTotal(prev => prev - 1);
     } catch (err) { alert("Kullanıcı silinirken hata oluştu."); }
@@ -57,7 +57,7 @@ export default function Users({ query }) {
     if (!selectedUser || !editForm.name.trim() || !editForm.surname.trim()) return;
     try {
       const newData = { name: editForm.name.trim(), surname: editForm.surname.trim() };
-      await axios.put(`http://localhost:3000/users/update/${selectedUser.id}`, newData, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+      await axios.put(`${import.meta.env.VITE_API_BASE_URL}/users/update/${selectedUser.id}`, newData, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
       setUsers(prev => prev.map(u => (u.id === selectedUser.id ? { ...u, ...newData } : u)));
       closeEditDialog();
     } catch { alert("Kullanıcı güncellenirken hata oluştu."); }
@@ -68,7 +68,7 @@ export default function Users({ query }) {
     else {
       setLoadingReservations(prev => ({ ...prev, [userId]: true }));
       try {
-        const { data } = await axios.get(`http://localhost:3000/reservation/user/${userId}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+        const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/reservation/user/${userId}`, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
         setUserReservations(prev => ({ ...prev, [userId]: data }));
         setExpandedUserIds(prev => [...prev, userId]);
       } catch { console.error("Rezervasyonlar alınamadı"); }

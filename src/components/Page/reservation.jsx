@@ -39,7 +39,7 @@ export default function Reservation() {
       const token = localStorage.getItem("token");
       const formattedDate = new Date(selectedDate).toISOString().split("T")[0];
       const { data } = await axios.get(
-        `http://localhost:3000/reservation/all?date=${formattedDate}`,
+        `${import.meta.env.VITE_API_BASE_URL}/reservation/all?date=${formattedDate}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setBookedTimes(data);
@@ -57,7 +57,7 @@ export default function Reservation() {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:3000/reservation",
+        `${import.meta.env.VITE_API_BASE_URL}/reservation`,
         { date, time, note },
         { headers: { Authorization: `Bearer ${token}` } }
       );

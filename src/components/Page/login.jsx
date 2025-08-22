@@ -23,9 +23,8 @@ export default function Login({ setIsLoggedIn, setIsAdmin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      const { data } = await axios.post("http://localhost:3000/login", formData);
+      const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/login`, formData);
       localStorage.setItem("token", data.token);
       localStorage.setItem("isAdmin", data.isAdmin);
       localStorage.setItem("user", JSON.stringify(data.user));
